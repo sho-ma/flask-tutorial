@@ -42,9 +42,9 @@ def register():
         error = None
 
         if not username:
-            error = 'ユーザー名は必須です。'
+            error = 'Username is required.'
         elif not password:
-            error = 'パスワードは必須です。'
+            error = 'Password is required.'
 
         if error is None:
             try:
@@ -54,7 +54,7 @@ def register():
                 )
                 db.commit()
             except db.IntegrityError:
-                error = f"{username} は既に登録されています。 "
+                error = f"User {username} is already registered. "
             else:
                 return redirect(url_for("auth.login"))
 
@@ -75,9 +75,9 @@ def login():
         ).fetchone()
 
         if user is None:
-            error = 'ユーザー名が間違っています。'
+            error = 'Incorrect username.'
         elif not check_password_hash(user['password'], password):
-            error = 'パスワードが間違っています。'
+            error = 'Incorrect password.'
 
         if error is None:
             session.clear()
